@@ -1,0 +1,133 @@
+<html>
+<head>
+    <title>Contact Us  | play</title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+        }
+
+        .full-screen {
+            background: #f5f5f5;
+            width: 100%;
+            float: left;
+            height: 100%;
+        }
+
+        .wrapper {
+            width: 90%;
+            padding: 20px 30px;
+            margin: 0 auto;
+            min-height: 300px;
+            background: #FFF;
+            margin-top: 20px;
+        }
+
+        .header-title {
+            background: linear-gradient(60deg, #d4eef9, #24b8ef) !important;
+            padding: 10px 3px;
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .clearfix {
+            clear: both;
+        }
+		.error-help-block {
+			color: #ff0000;
+		}
+    </style>
+</head>
+
+<body>
+<div class="full-screen">
+    <div class="wrapper">
+        <div class="header-title">Contact Us</div>
+        <div class="clearfix"></div>
+        <div class="col-lg-12">
+			<form role="form" id="frmContact">
+				<div class="form-group">
+					<label for="" class="form-label">Name</label>
+					<input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required>
+				</div>
+
+				<div class="form-group">
+					<label for="" class="form-label">Email</label>
+					<input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" required>
+				</div>
+
+				<div class="form-group">
+					<label for="" class="form-label">Contact</label>
+					<input type="number" class="form-control" name="number" id="number" placeholder="Enter Number" required>
+				</div>
+
+				<div class="form-group">
+					<label for="" class="form-label">Message</label>
+					<textarea name="message" class="form-control" id="message" placeholder="Enter Message" cols="5"
+							  rows="5" required></textarea>
+				</div>
+
+				<div class="form-group text-center mt-5">
+					<button class="btn btn-dark" type="submit" style="width: 100px;" id="sendRequest"> Send
+					</button>
+				</div>
+				
+				<div class="form-group">
+					<div class="alert alert-success" style="display:none;"></div>
+					<div class="alert alert-danger" style="display:none;"></div>
+				</div>
+			</form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script>
+$(function () {
+    $("#frmContact").validate({
+        errorElement: 'span',
+        errorClass: 'help-block error-help-block',
+        errorPlacement: function (error, element) {
+            if (element.hasClass('select2')) {
+                error.insertAfter(element.parent().find('span.select2'));
+            } else if (element.parent('.input-group').length ||
+                element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+                error.insertAfter(element.parent());
+                // else just place the validation message immediatly after the input
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error'); // add the Bootstrap error class to the control group
+        },
+
+        success: function (element) {
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // remove the Boostrap error class from the control group
+        },
+        focusInvalid: true,
+        submitHandler: function (form) {
+            $('.alert').hide();
+			
+			$('#frmContact')[0].reset();
+			$('.alert-success').show().html('Thank you! Your message was sent successfully.');
+			setTimeout(function () {
+				$('.alert').hide();
+			}, 3000);
+           
+        }
+    });
+});
+
+</script>
+</body>
+</html>
